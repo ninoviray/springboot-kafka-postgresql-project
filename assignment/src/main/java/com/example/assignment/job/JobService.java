@@ -1,15 +1,14 @@
 package com.example.assignment.job;
 
-import org.apache.tomcat.util.bcel.classfile.Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Optionals;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -31,11 +30,16 @@ public class JobService {
     }
 
     //returns job(id, description, status) by id
-    public Optional<Job> getJobById(Long jobId){
+    public List<Job> getJobById(Long jobId){
         Job job = jobRepository.findById(jobId).orElseThrow(() -> new IllegalStateException(
                 "job Id: " + jobId   + " could not be found!"));
 
-        return jobRepository.findById(jobId);
+        return jobRepository.findById(jobId).stream().toList();
+    }
+
+    //returns all jobs(id, description, status)
+    public List<Job> getJobAll() {
+        return jobRepository.findAll();
     }
 
     //saves job with status new
@@ -55,6 +59,13 @@ public class JobService {
         this.kafkaTemplate.send(topic, jobId);
 
         return jobOptional.get().getId();
+    }
+
+    //this method calls the method that handles the post command
+    //this is a work around because there is a http 404 error when using post request
+    public List<Job> addNewJobUsingGet(String description) {
+        addNewJob(description);
+        return jobRepository.findJobByDescription(description).stream().toList();
     }
 
     //kafka consumer - listens for kafka messages
