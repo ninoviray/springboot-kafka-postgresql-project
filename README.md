@@ -1,7 +1,7 @@
 # springboot-kafka-postgresql-project
 demo project using spring boot, poastgresql and kafka
 
-tools/kits: java sdk17 editor - intellij spring initializer - project file - maven, java8(1.8), dependencies: spring web, kafka, jpa, postgreSQL postman - testing http requests kafka 3.3.1 postgreSQL - pgAdmin4
+tools/kits: java sdk17 editor - intellij spring initializer - project file - maven, java8(1.8), dependencies: spring web, kafka, jpa, postgreSQL postman - testing http requests kafka 3.3.1 postgreSQL - pgAdmin4, node v18 for angular cli packages, visual studio code - angular editor
 
 app uses POST requests"localhost:8080/api/job/addNewJob/{job description goes here}" to retrieve jobs from client the job will be saved into a table in the database, sent to kafka broker, returns a job id
 
