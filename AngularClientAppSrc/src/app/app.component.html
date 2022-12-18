@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Angular Project</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js">
+  </script>
+</head>
+<body>
+  <div class="main-area">
+    <div class="content-area">
+      <div class="header">
+        <h1>Send a Job to Spring Boot API</h1>
+        <hr>
+      </div>
+      <div class="container">
+        <table id="big-table">
+          <tr>
+            <td>
+              <!--Job Form-->
+              <div class="form-area">
+                <div class="form-area-td">
+                  <h3>Enter a Job Description</h3>
+                    <input type="text" name="description" [(ngModel)]="inputDescription">
+                    <button class="btnPostJob" (click)="postJob(inputDescription)">Post Job</button>
+                </div>
+              </div>
+            </td>
+            <td>
+              <!--Display Jobs Table-->
+              <div class="jobs-display-area">
+                <div class="jobs-display-area-td">
+                  <h3>Display Jobs</h3>
+                  <div class="jobs-display-area-table">
+                    <table id="jobs">
+                      <tr>
+                        <th>Id</th>
+                        <th>Job Description</th>
+                        <th>Status</th>
+                      </tr>
+                      <tr *ngFor="let job of getJob; index as i">
+                        <td>{{job.id}}</td>
+                        <td>{{job.description}}</td>
+                        <td>{{job.status}}</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <hr>
+                  <div class="action-btn-container">
+                    <input style="width: 100px;" type="text" name="id" [(ngModel)]="inputId">
+                    <button class="btnGetJobById" (click)="getJobById(inputId)">Get Job By Id</button>
+                    <button class="btnGetJobAll" (click)="onGetJobAll()">Get All Jobs</button>
+                  </div>
+                </div>
+              </div>
+            </td>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script>
+  </script>
+</body>
+</html>
